@@ -8,6 +8,7 @@ import {
   HStack,
   Input,
   Select,
+  SimpleGrid,
   Stack,
   Textarea,
 } from '@chakra-ui/react';
@@ -66,50 +67,133 @@ export default function TaskForm({ task, onSubmit, onCancel }) {
   };
 
   return (
-    <Box as="form" onSubmit={handleSubmit} noValidate p={5} borderWidth="1px" borderRadius="lg" bg="white">
-      <Stack spacing={4}>
+    <Box
+      as="form"
+      onSubmit={handleSubmit}
+      noValidate
+      p={5}
+      borderWidth="1px"
+      borderColor="#E6DFD3"
+      borderTopLeftRadius="2xl"
+      borderBottomRightRadius="2xl"
+      borderTopRightRadius="lg"
+      borderBottomLeftRadius="lg"
+      bg="white"
+      boxShadow="0 6px 20px rgba(30, 36, 33, 0.05)"
+    >
+      <Stack spacing={3.5}>
         <FormControl isInvalid={Boolean(errors.title)}>
-          <FormLabel>Título</FormLabel>
-          <Input value={values.title} onChange={handleChange('title')} placeholder="Ej: Entregar tarea de matemáticas" />
-          <FormErrorMessage>{errors.title}</FormErrorMessage>
+          <FormLabel fontSize="xs" fontWeight="700" color="#3D4440">
+            Título
+          </FormLabel>
+          <Input
+            size="sm"
+            value={values.title}
+            onChange={handleChange('title')}
+            placeholder="Ej: Entregar tarea de matemáticas"
+            bg="#FAF7F2"
+            borderColor="#E6DFD3"
+            _hover={{ borderColor: '#D2C8B8' }}
+            _focus={{ bg: 'white', borderColor: '#E07A5F', boxShadow: '0 0 0 1px #E07A5F' }}
+            borderRadius="xl"
+          />
+          <FormErrorMessage fontSize="xs">{errors.title}</FormErrorMessage>
         </FormControl>
 
         <FormControl>
-          <FormLabel>Descripción</FormLabel>
-          <Textarea value={values.description} onChange={handleChange('description')} rows={3} />
+          <FormLabel fontSize="xs" fontWeight="700" color="#3D4440">
+            Descripción
+          </FormLabel>
+          <Textarea
+            size="sm"
+            value={values.description}
+            onChange={handleChange('description')}
+            rows={2}
+            placeholder="Detalles breves..."
+            bg="#FAF7F2"
+            borderColor="#E6DFD3"
+            _hover={{ borderColor: '#D2C8B8' }}
+            _focus={{ bg: 'white', borderColor: '#E07A5F', boxShadow: '0 0 0 1px #E07A5F' }}
+            borderRadius="xl"
+          />
         </FormControl>
 
-        <HStack spacing={4} align="flex-start" wrap="wrap">
-          <FormControl isInvalid={Boolean(errors.dueDate)} flex="1" minW="180px">
-            <FormLabel>Fecha límite</FormLabel>
-            <Input type="date" value={values.dueDate} onChange={handleChange('dueDate')} />
-            <FormErrorMessage>{errors.dueDate}</FormErrorMessage>
+        <SimpleGrid columns={{ base: 1, sm: 3 }} spacing={3}>
+          <FormControl isInvalid={Boolean(errors.dueDate)}>
+            <FormLabel fontSize="xs" fontWeight="700" color="#3D4440">
+              Fecha límite
+            </FormLabel>
+            <Input
+              size="sm"
+              type="date"
+              value={values.dueDate}
+              onChange={handleChange('dueDate')}
+              bg="#FAF7F2"
+              borderColor="#E6DFD3"
+              _hover={{ borderColor: '#D2C8B8' }}
+              _focus={{ bg: 'white', borderColor: '#E07A5F', boxShadow: '0 0 0 1px #E07A5F' }}
+              borderRadius="xl"
+            />
+            <FormErrorMessage fontSize="xs">{errors.dueDate}</FormErrorMessage>
           </FormControl>
 
-          <FormControl flex="1" minW="180px">
-            <FormLabel>Estado</FormLabel>
-            <Select value={values.status} onChange={handleChange('status')}>
+          <FormControl>
+            <FormLabel fontSize="xs" fontWeight="700" color="#3D4440">
+              Estado
+            </FormLabel>
+            <Select
+              size="sm"
+              value={values.status}
+              onChange={handleChange('status')}
+              bg="#FAF7F2"
+              borderColor="#E6DFD3"
+              _hover={{ borderColor: '#D2C8B8' }}
+              _focus={{ bg: 'white', borderColor: '#E07A5F' }}
+              borderRadius="xl"
+            >
               {Object.entries(STATUS_LABELS).map(([value, label]) => (
                 <option key={value} value={value}>{label}</option>
               ))}
             </Select>
           </FormControl>
 
-          <FormControl flex="1" minW="180px">
-            <FormLabel>Prioridad</FormLabel>
-            <Select value={values.priority} onChange={handleChange('priority')}>
+          <FormControl>
+            <FormLabel fontSize="xs" fontWeight="700" color="#3D4440">
+              Prioridad
+            </FormLabel>
+            <Select
+              size="sm"
+              value={values.priority}
+              onChange={handleChange('priority')}
+              bg="#FAF7F2"
+              borderColor="#E6DFD3"
+              _hover={{ borderColor: '#D2C8B8' }}
+              _focus={{ bg: 'white', borderColor: '#E07A5F' }}
+              borderRadius="xl"
+            >
               {Object.entries(PRIORITY_LABELS).map(([value, label]) => (
                 <option key={value} value={value}>{label}</option>
               ))}
             </Select>
           </FormControl>
-        </HStack>
+        </SimpleGrid>
 
-        <HStack justify="flex-end">
+        <HStack justify="flex-end" pt={1.5} spacing={2}>
           {onCancel && (
-            <Button variant="ghost" onClick={onCancel}>Cancelar</Button>
+            <Button variant="ghost" size="sm" borderRadius="full" color="#5C635F" onClick={onCancel}>
+              Cancelar
+            </Button>
           )}
-          <Button type="submit" colorScheme="teal">
+          <Button
+            type="submit"
+            bg="#1E2421"
+            color="white"
+            _hover={{ bg: '#E07A5F' }}
+            size="sm"
+            px={5}
+            borderRadius="full"
+            fontWeight="700"
+          >
             {isEditing ? 'Guardar cambios' : 'Crear tarea'}
           </Button>
         </HStack>
